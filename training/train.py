@@ -43,10 +43,11 @@ def main():
     feature_list = []
     for i in range(len(filenames)):
         feature_list.append(extract_features(filenames[i], model))
-        if (i + 1) % 50 == 0:
+        if (i + 1) % 100 == 0:
             print(f"processed {i + 1} images out of {len(filenames)}")
 
     print("saving features and filenames")
+    os.makedirs("training/data", exist_ok=True)
     pickle.dump(
         feature_list, open("training/data/features-caltech101-resnet.pkl", "wb")
     )
