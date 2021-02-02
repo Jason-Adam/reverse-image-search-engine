@@ -1,5 +1,5 @@
 # Reverse Image Search Engine  
-This is a follow along application built on top of the 4th Chapter of *Practical Deep Learning for Cloud, Mobile & Edge* [1]. The `caltech101` dataset used to train the model.  
+This is a follow along application built on top of the 4th Chapter of *Practical Deep Learning for Cloud, Mobile & Edge* [1]. The `caltech101` dataset was used to train the model.  
 
 ## Setup  
 The following steps will setup your virtual environment and download the dataset.
@@ -18,7 +18,7 @@ bash training/data_setup.sh
 ```  
 
 ## Training  
-From inside the virutal environment, you can train the model by running:  
+From inside the virtual environment, you can train the model by running:  
 
 ```bash  
 python training/train.py
