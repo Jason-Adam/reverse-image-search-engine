@@ -22,12 +22,14 @@ def extract_features(img_path: str, model):
     features = model.predict(preprocessed_img)
     flattened_features = features.flatten()
     normalized_features = flattened_features / np.linalg.norm(flattened_features)
+
     return normalized_features
 
 
 def get_file_list(root_dir=root_dir) -> List[str]:
     file_list = []
     counter = 1
+
     for root, _, filenames in os.walk(root_dir):
         for filename in filenames:
             if any(ext in filename for ext in extensions):
@@ -35,14 +37,17 @@ def get_file_list(root_dir=root_dir) -> List[str]:
                 counter += 1
 
     print(f"found {len(file_list)} files")
+
     return file_list
 
 
 def main():
     filenames = sorted(get_file_list())
     feature_list = []
+
     for i in range(len(filenames)):
         feature_list.append(extract_features(filenames[i], model))
+
         if (i + 1) % 100 == 0:
             print(f"processed {i + 1} images out of {len(filenames)}")
 
