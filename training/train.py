@@ -6,22 +6,25 @@ import numpy as np
 import tensorflow as tf
 from tensorflow.keras.applications.resnet50 import ResNet50, preprocess_input
 
-model = ResNet50(weights="imagenet", include_top=False, input_shape=(224, 224, 3))
+model = ResNet50(weights="imagenet",
+                 include_top=False,
+                 input_shape=(224, 224, 3))
 extensions = [".jpg", ".JPG", ".jpeg", ".JPEG", ".png", "PNG"]
 root_dir = "caltech101"
 
 
 def extract_features(img_path: str, model):
     input_shape = (224, 224, 3)
-    img = tf.keras.preprocessing.image.load_img(
-        img_path, target_size=(input_shape[0], input_shape[1])
-    )
+    img = tf.keras.preprocessing.image.load_img(img_path,
+                                                target_size=(input_shape[0],
+                                                             input_shape[1]))
     img_array = tf.keras.preprocessing.image.img_to_array(img)
     expanded_img_array = np.expand_dims(img_array, axis=0)
     preprocessed_img = preprocess_input(expanded_img_array)
     features = model.predict(preprocessed_img)
     flattened_features = features.flatten()
-    normalized_features = flattened_features / np.linalg.norm(flattened_features)
+    normalized_features = flattened_features / np.linalg.norm(
+        flattened_features)
 
     return normalized_features
 
@@ -53,10 +56,10 @@ def main():
 
     print("saving features and filenames")
     os.makedirs("training/data", exist_ok=True)
-    pickle.dump(
-        feature_list, open("training/data/features-caltech101-resnet.pkl", "wb")
-    )
-    pickle.dump(filenames, open("training/data/filenames-caltech101-resnet.pkl", "wb"))
+    pickle.dump(feature_list,
+                open("training/data/features-caltech101-resnet.pkl", "wb"))
+    pickle.dump(filenames,
+                open("training/data/filenames-caltech101-resnet.pkl", "wb"))
 
 
 if __name__ == "__main__":
